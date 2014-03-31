@@ -11,7 +11,7 @@ import com.mycompany.myproject.testdata.TestData;
 @Listeners(com.mycompany.myproject.utilities.ScreenshotListener.class)
 public class ManufactorKmarCoupnTest extends BaseTest {
 
-	//@Test
+	@Test
 	public void loadingManufacturerCouponFromCouponCenterTab_TC_60() throws Exception {
 
 		WebDriver webDriver = getDriver();
