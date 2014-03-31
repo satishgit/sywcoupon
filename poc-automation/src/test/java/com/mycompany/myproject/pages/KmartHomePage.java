@@ -74,7 +74,6 @@ public class KmartHomePage extends KmartHomePageLocators
 			}
 			
 		} catch (Exception e) {
-			
 			Assert.assertTrue(false,"Problem in searching product id on kmart site");
 		}
 		return new KmartProductDetailsPage(webDriver);

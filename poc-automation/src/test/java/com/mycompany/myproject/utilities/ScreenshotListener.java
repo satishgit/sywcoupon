@@ -25,7 +25,7 @@ public class ScreenshotListener extends TestListenerAdapter {
       try {
         screenshot.createNewFile();
       } catch (IOException e) {
-        e.printStackTrace();
+    	  System.out.println(e.toString());
       }
     }
     try {
@@ -34,9 +34,9 @@ public class ScreenshotListener extends TestListenerAdapter {
       
 
     } catch (FileNotFoundException e) {
-      e.printStackTrace();
+    	System.out.println(e.toString());
     } catch (IOException e) {
-      e.printStackTrace();
+    	System.out.println(e.toString());
     }
     System.out.println("Written screenshot to " + screenshot.getAbsolutePath());
   }

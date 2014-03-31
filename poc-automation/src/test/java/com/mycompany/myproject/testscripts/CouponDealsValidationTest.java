@@ -20,7 +20,6 @@ public class CouponDealsValidationTest extends BaseTest {
 		pageFactory.LoginRegistrationModal(webDriver)
 				   .launchApplication()
 				   .loginAs("auto_1396168341362@syw.com", TestData.USER_PASSWORD);
-				   // .loginAs("auto_1396220402140@syw.com", TestData.USER_PASSWORD);
 
 
 		pageFactory.navigationTo(webDriver)
@@ -34,7 +33,7 @@ public class CouponDealsValidationTest extends BaseTest {
 	}
 		
 
-	//@Test
+	@Test
 	public void myCouponsValidationTest_TC_12() throws Exception {
 
 		WebDriver webDriver = getDriver();
@@ -42,8 +41,7 @@ public class CouponDealsValidationTest extends BaseTest {
 
 		pageFactory.LoginRegistrationModal(webDriver)
 				   .launchApplication()
-				  .loginAs(TestData.USER_EMAIL, TestData.USER_PASSWORD);
-				    //.loginAs("auto_1396220402140@syw.com", TestData.USER_PASSWORD);
+				   .loginAs(TestData.USER_EMAIL, TestData.USER_PASSWORD);
 
 
 		pageFactory.navigationTo(webDriver)

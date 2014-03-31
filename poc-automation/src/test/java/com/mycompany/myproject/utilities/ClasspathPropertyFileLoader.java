@@ -20,7 +20,7 @@ public class ClasspathPropertyFileLoader extends Properties {
             }
             properties.load(stream);
         } catch (IOException e) {
-            e.printStackTrace();
+        	System.out.println(e.toString());
         } finally {
             if (stream != null) {
                 stream.close();

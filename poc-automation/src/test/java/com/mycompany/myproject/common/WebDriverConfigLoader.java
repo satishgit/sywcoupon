@@ -55,7 +55,7 @@ public  class WebDriverConfigLoader {
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.toString());
 		}
     	return webDriverConfig;
     	

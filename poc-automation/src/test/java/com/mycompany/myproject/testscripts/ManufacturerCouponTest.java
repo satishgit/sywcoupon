@@ -31,8 +31,5 @@ public class ManufacturerCouponTest extends BaseTest {
 		pageFactory.HeaderPage(webDriver)
 				   .signOutFromApplication();
 	}
-		
-	 
-	
 
 }

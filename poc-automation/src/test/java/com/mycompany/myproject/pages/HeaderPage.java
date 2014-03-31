@@ -50,11 +50,11 @@ public class HeaderPage extends HeaderPageLocators
 		
 		browser.waitForObjectToAppear(PROFILE_LOGO);
 		browser.click(PROFILE_LOGO);
-		//browser.waitForObjectToAppear(SIGN_OUT_LINK);
-		//browser.click(SIGN_OUT_LINK);
-		//browser.waitForObjectToAppear(SIGN_IN_LINK);
- 		//Assert.assertEquals(browser.getTitle(), "ShopYourWay.com: Online shopping for Electronics, Movies, Music and more");
-		//GenericFunctionLibrary.logReport("Successfully Logged out from application",LOG.PASS);
+		browser.waitForObjectToAppear(SIGN_OUT_LINK);
+		browser.click(SIGN_OUT_LINK);
+		browser.waitForObjectToAppear(SIGN_IN_LINK);
+ 		Assert.assertEquals(browser.getTitle(), "ShopYourWay.com: Online shopping for Electronics, Movies, Music and more");
+		GenericFunctionLibrary.logReport("Successfully Logged out from application",LOG.PASS);
 	}
 	
 	public void openJoinOrActivateForm() throws Exception

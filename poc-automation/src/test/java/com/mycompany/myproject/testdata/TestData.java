@@ -27,7 +27,7 @@ public class TestData {
 			 USER_PASSWORD = (String) data.get("password");
 				
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e.toString());
 		}
 
 	}

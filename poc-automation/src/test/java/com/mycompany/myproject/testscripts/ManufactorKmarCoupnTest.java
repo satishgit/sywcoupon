@@ -18,8 +18,8 @@ public class ManufactorKmarCoupnTest extends BaseTest {
 		PageFactory pageFactory = new PageFactory(webDriver);
 
 		pageFactory.LoginRegistrationModal(webDriver)
-		   .launchApplication()
-		   .registerNewUser();
+		   		   .launchApplication()
+		   		   .registerNewUser();
 
 
 		pageFactory.navigationTo(webDriver)

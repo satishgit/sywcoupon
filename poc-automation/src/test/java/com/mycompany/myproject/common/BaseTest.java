@@ -44,16 +44,18 @@ public class BaseTest extends WebDriverFactory {
 
 		System.out.println(getDriver().manage().getCookies());
 
-		getDriver().manage().deleteAllCookies();
-		try {
-			System.out.println("--------  Cookie cleared -------");
-			System.out.println(getDriver().manage().getCookies());
-			getDriver().get("http://www.shopyourway.com/?sid=39");
-			System.out.println(getDriver().manage().getCookies());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		getDriver().manage().deleteAllCookies(); 
+		getDriver().close();
+		
+//		try {
+//			System.out.println("--------  Cookie cleared -------");
+//			System.out.println(getDriver().manage().getCookies());
+//			getDriver().get("http://www.shopyourway.com/?sid=39");
+//			System.out.println(getDriver().manage().getCookies());
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//
+//			System.out.println(e.toString());}
 		
 	}
 

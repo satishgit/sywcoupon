@@ -43,8 +43,7 @@ public class MyCouponsPage extends MyCouponsPageLocators
 			System.out.println();
 			webDriver.switchTo().defaultContent();
 			browser.switchTo(By.name("newsfeed-frame"));
-
-			e.printStackTrace();
+			System.out.println(e.toString());
 		}
 		
 		//TODO Add more verification checkpoints for my coupon page if required
@@ -221,7 +220,7 @@ public class MyCouponsPage extends MyCouponsPageLocators
 		if(couponElement==null)
 		{
 			GenericFunctionLibrary.logReport("Coupn not found on coupon center page. coupon name -" + couponName, LOG.FAIL);
-			System.out.println("Coupon not Found on coupon center page coupon name:: "+ couponName);
+			System.out.println("Coupon not Found on coupon center page");
 			GenericFunctionLibrary.logReport("Coupon is not available in coupon center", LOG.FAIL);
 			Assert.assertTrue(false, "Coupon is not available in coupon center");
 		}

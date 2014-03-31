@@ -21,7 +21,8 @@ public class Configuration {
 					sProjectLocation.lastIndexOf("\\"));
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println(e.toString());
 		}
 	}
 
