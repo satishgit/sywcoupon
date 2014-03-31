@@ -1,0 +1,14 @@
+# YAML comments start with a "#"
+
+# Properties and values are separated by a colon.
+# There has to be at least one space between the colon and the value.
+
+
+# User details to login to application
+email: ecouponauto@syw.com   
+password: sears123       
+
+---
+
+email: test@test.com   
+password: test123       
