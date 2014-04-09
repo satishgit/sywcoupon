@@ -131,7 +131,12 @@ public class AbstractPage extends BaseTest {
 	}
 
 	public boolean isDisplayed(By by) {
-		return findElement(by).isDisplayed();
+		
+		try {
+			 return findElement(by).isDisplayed();
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	public boolean verifyObjectOnPage(By by) {

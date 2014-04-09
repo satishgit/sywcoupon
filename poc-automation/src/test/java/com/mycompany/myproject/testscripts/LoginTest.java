@@ -21,7 +21,8 @@ public class LoginTest extends BaseTest {
 				   .launchApplication()
 				   .validateLoginModal()
 				   .loginAs(TestData.USER_EMAIL, TestData.USER_PASSWORD)
-				   .verifyHomePage();
+				   .verifyHomePage()
+				   .verifySywrNumberOnRewardProgram();
 		
 		pageFactory.HeaderPage(webDriver)
 					.signOutFromApplication();

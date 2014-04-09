@@ -26,19 +26,31 @@ public class HeaderPage extends HeaderPageLocators
 	
 	public void openSignInForm() throws InterruptedException
 	{
-		browser.click(SIGN_IN_LINK);
-		Thread.sleep(5000);
-		browser.waitForObjectToAppear(LoginRegistrationModalLocators.LOGIN_REGISTRATION_POPUP_IFRAME);
+		try {
+			browser.click(SIGN_IN_LINK);
+			if(null==browser.waitForObjectToAppear(LoginRegistrationModalLocators.LOGIN_REGISTRATION_POPUP_IFRAME))
+			{
+				Thread.sleep(2000);
+				browser.waitForObjectToAppear(LoginRegistrationModalLocators.LOGIN_REGISTRATION_POPUP_IFRAME);	
+			}
+			
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
 
 	}
 
 	public void clickOnMyCouponTab()
 	{
-		browser.click(MY_COUPONS_TAB);
-		browser.waitForObjectToAppear(MyCouponsPageLocators.COUPON_CENTER_COUPON_LIST_TABEL);
-		browser.switchTo(By.name("newsfeed-frame"));
-		
-		browser.waitForObjectToAppear(MyCouponsPageLocators.COUPON_CENTER_COUPON_LIST_TABEL);
+		try {
+			browser.click(MY_COUPONS_TAB);
+			browser.waitForObjectToAppear(MyCouponsPageLocators.COUPON_CENTER_COUPON_LIST_TABEL);
+			browser.switchTo(By.name("newsfeed-frame"));
+			
+			browser.waitForObjectToAppear(MyCouponsPageLocators.COUPON_CENTER_COUPON_LIST_TABEL);
+		} catch (Exception e) {
+			GenericFunctionLibrary.logReport("Problem in navigating coupon center page", LOG.FAIL);
+		}
 	}
 
 	public void signOutFromApplication()

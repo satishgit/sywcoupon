@@ -94,17 +94,15 @@ public class KmartHomePage extends KmartHomePageLocators
 			}
 			else
 			{
-				GenericFunctionLibrary.logReport("Local zip code to set not available", LOG.PASS);
+				GenericFunctionLibrary.logReport("Local zip code to set  available", LOG.PASS);
 				System.out.println();
 			}
 		} catch (Exception e) {
 			GenericFunctionLibrary.logReport("Problem in setting Local zip code", LOG.FAIL);
 			Assert.assertTrue(false,"Problem in setting Local zip code");
-			
 		}
 		
 		return new KmartHomePage(webDriver);
 	}
-
 	
 }

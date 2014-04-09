@@ -16,6 +16,11 @@ public class PageFactory
 	private ApplicationNavigationLibrary navigationTo;
 	private KmartShoppingCartPage kmartShoppingCartPage;
 	private KmartHomePage kmartHomePage;
+	private SYWProductDetailsPage sYWProductDetailsPage;
+	private WhiteLabelShoppingCartPage whiteLabelShoppingCartPage;
+	private SearsProductOptionsPage searsProductOptionsPage;
+	private MyCouponsPage myCouponsPage;
+	private WhiteLabelCheckoutPage whiteLabelCheckoutPage;
 	
 	public PageFactory(WebDriver webDriver)
 	{
@@ -71,4 +76,38 @@ public class PageFactory
 		return kmartShoppingCartPage;
 	}
 	
+	public SYWProductDetailsPage sYWProductDetailsPage(WebDriver webDriver)
+	{
+		if(sYWProductDetailsPage == null)
+			sYWProductDetailsPage = new SYWProductDetailsPage(webDriver);
+		return sYWProductDetailsPage;
+	}
+	
+	public SearsProductOptionsPage searsProductOptionsPage(WebDriver webDriver)
+	{
+		if(searsProductOptionsPage == null)
+			searsProductOptionsPage = new SearsProductOptionsPage(webDriver);
+		return searsProductOptionsPage;
+	}
+	
+	public WhiteLabelShoppingCartPage whiteLabelShoppingCartPage(WebDriver webDriver)
+	{
+		if(whiteLabelShoppingCartPage == null)
+			whiteLabelShoppingCartPage = new WhiteLabelShoppingCartPage(webDriver);
+		return whiteLabelShoppingCartPage;
+	}
+	
+	public MyCouponsPage myCouponsPage(WebDriver webDriver)
+	{
+		if(myCouponsPage == null)
+			myCouponsPage = new MyCouponsPage(webDriver);
+		return myCouponsPage;
+	}
+	
+	public WhiteLabelCheckoutPage whiteLabelCheckoutPage(WebDriver webDriver)
+	{
+		if(whiteLabelCheckoutPage == null)
+			whiteLabelCheckoutPage = new WhiteLabelCheckoutPage(webDriver);
+		return whiteLabelCheckoutPage;
+	}
 }

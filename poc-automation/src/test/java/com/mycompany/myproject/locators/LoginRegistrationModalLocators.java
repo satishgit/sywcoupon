@@ -8,6 +8,9 @@ public class LoginRegistrationModalLocators
 	
 	public static final By LOGIN_REGISTRATION_POPUP_FORM = By.id("registration-form-page");
 	
+	
+	public static final By LOGIN_REGISTRATION_POPUP_IFRAME_CONTAINER = By.id("registration-iframe-container");
+	
 	public static final By LOGIN_REGISTRATION_POPUP_IFRAME = By.id("registration-form-iframe");
 	
 	public static final By LOGIN_EMAIL_TF = By.id("email");

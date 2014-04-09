@@ -61,6 +61,7 @@ public class MyCouponsPage extends MyCouponsPageLocators
 	public void clickOnCouponCenterTab()
 	{
 		browser.click(COUPON_CENTER_TAB);
+		try {Thread.sleep(5000);} catch (InterruptedException e) {}
 		browser.waitForObjectToAppear(COUPON_CENTER_COUPON_LIST_TABEL);
 	}
 	
@@ -82,6 +83,8 @@ public class MyCouponsPage extends MyCouponsPageLocators
 		
 		try {
 			clickOnMyCouponTab();
+			Thread.sleep(5000);
+			browser.waitForObjectToAppear(REMOVE_ALL_COUPONS_LINK);
 			browser.click(REMOVE_ALL_COUPONS_LINK);
 			browser.waitForObjectToAppear(REMOVE_ALL_COUPONS_CONFIRMATION_MODAL);
 			browser.click(REMOVE_ALL_CONFIRMATION_YES_BTN);
@@ -128,10 +131,12 @@ public class MyCouponsPage extends MyCouponsPageLocators
 			
 			WebElement couponElement = null;
 			
-			for (int i = 1; i < coupons.size(); i++) {
+			for (int i = 0; i < coupons.size(); i++) {
 				
-				if(coupons.get(i).getText().equals(couponName))
+				System.out.println(coupons.get(i).getText());
+				if(coupons.get(i).getText().contains(couponName))
 				{
+				
 					couponElement = coupons.get(i);
 					GenericFunctionLibrary.logReport("Successfully Searched coupn on coupon center page. coupon name -" + couponName, LOG.PASS);
 					System.out.println("Coupon Found on coupon center page");
@@ -296,6 +301,28 @@ public class MyCouponsPage extends MyCouponsPageLocators
 		return new MyCouponsPage(webDriver);
 	}
 
+	public String getAppliedCouponPromoCode(String couponName)
+	{
+		WebElement promotCodeElement = null;
+		String sPromotCode ="";
+		try {
+			WebElement couponElement = validateCouponInMyCouponsTab(couponName);
+			String couponId = couponElement.getAttribute("id");
+			WebElement seeDetailsLink = browser.findElement(By.xpath(".//*[@id='"+couponId+"']/div/div[3]/div[1]/span[1]/a"));
+			System.out.println(seeDetailsLink.isDisplayed());
+					seeDetailsLink.click();
+					Thread.sleep(1000);
+			promotCodeElement = browser.findElement(By.xpath(".//*[@id='"+couponId+"']/div/div[2]/div[2]/div/span[1]"));
+
+			sPromotCode = promotCodeElement.getText();
+			sPromotCode = sPromotCode.replace("PROMO CODE:", "");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+		return sPromotCode.trim();
+	}
+	
 
 	public MyCouponsPage validateTiCouponOnCouponCenterPage(String couponName) throws InterruptedException {
 
@@ -313,6 +340,8 @@ public class MyCouponsPage extends MyCouponsPageLocators
 
 		return validateCouponOnCouponCenterPage(couponName);
 	}
+
+
 
 	
 }

@@ -30,6 +30,15 @@ public class HeaderPageLocators
 	public static final By PROFILE_NAME = By.xpath("#presence span>span.first-name");
 
 	public static final By SIGN_OUT_LINK = By.partialLinkText("Sign-out");
+	
+	public static final By HEADER_REWARDS_LINK = By.cssSelector("div.rewards>span.indicator-txt");
+	
+	public static final By REWARDS_PROGRAM_ACCOUNT_SECTION = By.cssSelector(".account-into-section");
+	
+	public static final By REWARDS_PROGRAM_MEMBERSHIP_INFO = By.cssSelector("div.membership-info");
+	
+	public static final By REWARDS_PROGRAM_OVERLAY_CLOS_BTN = By.cssSelector("#rewards-drop-down div.section-close");
+	
 
 
 	

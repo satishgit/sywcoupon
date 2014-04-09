@@ -20,7 +20,8 @@ public class RegistrationTest extends BaseTest {
 		pageFactory.LoginRegistrationModal(webDriver)
 				   .launchApplication()
 				   .validateRegistrationModal()
-				   .registerNewUser();
+				   .registerNewUser()
+				   .verifySywrNumberOnRewardProgram();
 		
 		pageFactory.HeaderPage(webDriver)
 					.signOutFromApplication();

@@ -14,6 +14,12 @@ public class CouponDealsValidationTest extends BaseTest {
 	@Test
 	public void couponDealsValidationTest_TC_03() throws Exception {
 
+
+		String couponName_TI = "$15 in Points on $100 Sporting Goods Purchase.";
+		String couponName_Holiday = "$10 in Points On $75 in Clothing";
+		String couponName_Manufater = "Save $.55 on HORMEL®";
+
+		
 		WebDriver webDriver = getDriver();
 		PageFactory pageFactory = new PageFactory(webDriver);
 
@@ -24,9 +30,9 @@ public class CouponDealsValidationTest extends BaseTest {
 
 		pageFactory.navigationTo(webDriver)
 				   .navigateToCouponCenterPage()
-				   .validateTiCouponOnCouponCenterPage("$15 in Points on $100 Sporting Goods Purchase.") // Vaalidate TI coupns on coupn center page
-				   .validateHolidayCouponOnCouponCenterPage("$10 in Points On $75 in Clothing") // validate Holiday coupon on coupon center page
-				   .validateManufatureCouponOnCouponCenterPage("Save $.55 on HORMEL®"); //validate Manufactor coupon on coupon center page
+				   .validateTiCouponOnCouponCenterPage(couponName_TI) // Vaalidate TI coupns on coupn center page
+				   .validateHolidayCouponOnCouponCenterPage(couponName_Holiday) // validate Holiday coupon on coupon center page
+				   .validateManufatureCouponOnCouponCenterPage(couponName_Manufater); //validate Manufactor coupon on coupon center page
 				   
 		pageFactory.HeaderPage(webDriver)
 				   .signOutFromApplication();

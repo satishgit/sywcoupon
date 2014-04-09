@@ -44,7 +44,7 @@ public class LoginRegistrationModal extends LoginRegistrationModalLocators {
 
 	}
 
-	public void registerNewUser()
+	public HomePage registerNewUser()
 	{
 		try {
 
@@ -76,20 +76,15 @@ public class LoginRegistrationModal extends LoginRegistrationModalLocators {
 				Assert.assertTrue(false);
 			}
 			
-			System.out.println(browser.getText(By.className("account-into-section")));
 			browser.waitForObjectToAppear(HeaderPageLocators.PROFILE_NAME);
 		
-			
-			if (browser.isDisplayed(By.cssSelector("#rewards-drop-down div.section-close"))) {
-				browser.click(By.cssSelector("#rewards-drop-down div.section-close"));
-			}
-			
 
 		}catch(Exception e)
 		{
 			GenericFunctionLibrary.logReport("Problem in New user registration", LOG.FAIL);
 			Assert.assertTrue(false);
 		}
+		return new HomePage(webDriver);
 	}
 	
 	public LoginRegistrationModal validateRegistrationModal()
@@ -119,7 +114,7 @@ public class LoginRegistrationModal extends LoginRegistrationModalLocators {
 			browser.waitForObjectToAppear(HeaderPageLocators.SIGN_IN_LINK);
 			
 		} catch (Exception e) {
-			GenericFunctionLibrary.logReport("Problem in validated Sign In Email and Password fields", LOG.FAIL);
+			GenericFunctionLibrary.logReport("Problem in validated registration modal fields", LOG.FAIL);
 			Assert.assertTrue(false);
 		}
 
@@ -160,7 +155,6 @@ public class LoginRegistrationModal extends LoginRegistrationModalLocators {
 			Assert.assertTrue(false);
 		}
 
-		
 		return new LoginRegistrationModal(webDriver);
 	}
 	
@@ -169,9 +163,10 @@ public class LoginRegistrationModal extends LoginRegistrationModalLocators {
 
 		try {
 			new HeaderPage(webDriver).openSignInForm();
-			browser.waitForObjectToAppear(LOGIN_REGISTRATION_POPUP_IFRAME);
+			browser.waitForObjectToAppear(LOGIN_REGISTRATION_POPUP_IFRAME_CONTAINER);
+			browser.switchTo(LOGIN_REGISTRATION_POPUP_IFRAME);
 			
-			if (browser.isDisplayed(LOGIN_REGISTRATION_POPUP_IFRAME)) {
+			if (browser.isDisplayed(LOGIN_REGISTRATION_POPUP_IFRAME_CONTAINER)) {
 				browser.switchTo(LOGIN_REGISTRATION_POPUP_IFRAME);
 			}
 
@@ -184,10 +179,8 @@ public class LoginRegistrationModal extends LoginRegistrationModalLocators {
 			//click on Sign in button
 			clickSignInButton();
 			
-			Thread.sleep(5000); // Added just for temporary will berefacored
-
 			browser.waitForObjectToAppear(HomePageLocators.STATUS_BOX_CONTAINER);
-			
+			browser.waitForObjectToAppear(HomePageLocators.PROFILE_LOGO);
 			if (browser.isDisplayed(HomePageLocators.PROFILE_LOGO)) {
 				GenericFunctionLibrary.logReport("User successfully logged in using email: " + email + " and password: " + password , LOG.PASS);
 			} 
