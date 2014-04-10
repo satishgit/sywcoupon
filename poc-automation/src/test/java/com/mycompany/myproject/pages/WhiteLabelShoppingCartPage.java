@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
+import com.mycompany.myproject.locators.HeaderPageLocators;
 import com.mycompany.myproject.locators.KmartShoppingCartPageLocators;
 import com.mycompany.myproject.locators.WhiteLabelCheckoutPageLocators;
 import com.mycompany.myproject.locators.WhiteLabelShoppingCartPageLocators;
@@ -117,8 +118,8 @@ public class WhiteLabelShoppingCartPage extends WhiteLabelShoppingCartPageLocato
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			browser.click(TOTA_SAVING_FLYOUT_CLOSE);
+			if(browser.isDisplayed(TOTA_SAVING_FLYOUT_CLOSE))
+				browser.click(TOTA_SAVING_FLYOUT_CLOSE);
 
 			System.out.println("--- IN SAving LINK verifySavingsLinkCouponShoppingCartPage  DONE");
 	}
@@ -155,13 +156,12 @@ public class WhiteLabelShoppingCartPage extends WhiteLabelShoppingCartPageLocato
 				{
 					GenericFunctionLibrary.logReport("Earn points coupon is not applied", LOG.FAIL);
 				}
-				System.out.println("SYW_EARN_DETAILS_FLYOUT_CLOSE_BTN "+ browser.isDisplayed(SYW_EARN_DETAILS_FLYOUT_CLOSE_BTN));
-				browser.click(SYW_EARN_DETAILS_FLYOUT_CLOSE_BTN);
 				
 			} catch (Exception e) {
-
 			}
 			
+			if(browser.isDisplayed(SYW_EARN_DETAILS_FLYOUT_CLOSE_BTN))
+				browser.click(SYW_EARN_DETAILS_FLYOUT_CLOSE_BTN);
 	}
 	
 	public WhiteLabelShoppingCartPage verifyCouponAppliedOnKmartShoppingcartPage(String couponNumber) {
@@ -257,13 +257,24 @@ public ArrayList<String> verifyShoppingCartPageAndgetProductDetails()
 					System.out.println("Products Number -"+ productNumber + " Product Name: " + productTitle);				
 				}
 		
-			
-			
-	
 			} catch (Exception e) {
 
 			}
 			return shoppingCartProfucts;
 
 }
+
+public void clickContinueShoppingButton()
+{
+	try {
+		browser.waitForObjectToAppear(CONTINUE_SHOPPING_BTN);
+		browser.click(By.xpath(".//*[@id='presence']/div/div[2]"));
+		browser.waitForObjectToAppear(HeaderPageLocators.HEADER_SEARCH_PRODUCTS_TF);
+		browser.waitForPageLoaded();
+	} catch (Exception e) {
+
+	}
+}
+
+
 }

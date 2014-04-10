@@ -206,7 +206,7 @@ public class LoginRegistrationModal extends LoginRegistrationModalLocators {
 
 	public LoginRegistrationModal launchApplication() {
 		webDriver.get(Configuration.APP_URL);
-		webDriver.manage().deleteAllCookies();
+		//webDriver.manage().deleteAllCookies();
 		if(browser.getTitle().contains("ShopYourWay.com: Online shopping for Electronics, Movies, Music and more"))
 			GenericFunctionLibrary.logReport("Successfully opened application login page.", LOG.PASS);
 		else

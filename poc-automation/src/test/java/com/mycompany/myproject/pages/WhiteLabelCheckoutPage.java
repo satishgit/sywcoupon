@@ -196,7 +196,9 @@ public class WhiteLabelCheckoutPage extends WhiteLabelCheckoutPageLocators
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			browser.click(TOTA_SAVING_FLYOUT_CLOSE);
+			
+			if(browser.isDisplayed(TOTA_SAVING_FLYOUT_CLOSE))
+				browser.click(TOTA_SAVING_FLYOUT_CLOSE);
 			System.out.println("--- IN SAving LINK verifySavingsLinkCouponShoppingCartPage  DONE");
 	}
 	
@@ -226,13 +228,14 @@ public class WhiteLabelCheckoutPage extends WhiteLabelCheckoutPageLocators
 					GenericFunctionLibrary.logReport("Earn points coupon is not applied", LOG.FAIL);
 				}
 				
-				browser.click(SYW_EARN_DETAILS_FLYOUT_CLOSE_BTN);
+				
 
 			} catch (Exception e) {
 				GenericFunctionLibrary.logReport("Problem in verifying earn points", LOG.FAIL);
 			}
 			
-			
+			if(browser.isDisplayed(SYW_EARN_DETAILS_FLYOUT_CLOSE_BTN))
+				browser.click(SYW_EARN_DETAILS_FLYOUT_CLOSE_BTN);
 			
 			
 	}

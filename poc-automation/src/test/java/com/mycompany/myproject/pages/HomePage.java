@@ -1,5 +1,8 @@
 package com.mycompany.myproject.pages;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
@@ -114,6 +117,22 @@ public class HomePage extends HomePageLocators
 			
 		return s.substring(0,s.indexOf("PIN"));
 	}
-	
-	
+
+
+	public WhiteLabelShoppingCartPage addProductsToShoppingCart(ArrayList<String> productsNuber)
+	{
+		try {
+			for (int i = 0; i < productsNuber.size(); i++) {
+				String productId = productsNuber.get(i);
+				searchProduct(productId);
+				new SYWProductDetailsPage(webDriver)
+					.verifySYWProductDetailsPage(productId)
+					.clickAddToCartAndNavigateToShoppingCartPage();
+				if(i<productsNuber.size()-1)
+					new WhiteLabelShoppingCartPage(webDriver).clickContinueShoppingButton();	
+			}
+		} catch (Exception e) {
+		}
+		return new WhiteLabelShoppingCartPage(webDriver);
+	}
 }
