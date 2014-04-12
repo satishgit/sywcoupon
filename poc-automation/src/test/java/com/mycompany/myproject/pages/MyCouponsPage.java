@@ -1,5 +1,7 @@
 package com.mycompany.myproject.pages;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -35,15 +37,11 @@ public class MyCouponsPage extends MyCouponsPageLocators
 		try {
 			browser.waitForObjectToAppear(COUPON_CENTER_COUPON_LIST_TABEL);
 			Assert.assertTrue(browser.getTitle().contains(PAGE_TITLE), "Control is not on My coupons Page");
-			System.out.println(browser.verifyObjectOnPage(COUPON_CENTER_TAB));
-			System.out.println(browser.verifyObjectOnPage(MY_COUPONS_TAB));
+			verifyCouponCenterTab();
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println();
 			webDriver.switchTo().defaultContent();
 			browser.switchTo(By.name("newsfeed-frame"));
-			System.out.println(e.toString());
 		}
 		
 		//TODO Add more verification checkpoints for my coupon page if required
@@ -60,9 +58,27 @@ public class MyCouponsPage extends MyCouponsPageLocators
 
 	public void clickOnCouponCenterTab()
 	{
-		browser.click(COUPON_CENTER_TAB);
-		try {Thread.sleep(5000);} catch (InterruptedException e) {}
+		try {
+			browser.click(COUPON_CENTER_TAB);
+			try {Thread.sleep(5000);} catch (InterruptedException e) {}
+			browser.waitForObjectToAppear(COUPON_CENTER_COUPON_LIST_TABEL);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void verifyCouponCenterTab()
+	{
 		browser.waitForObjectToAppear(COUPON_CENTER_COUPON_LIST_TABEL);
+		browser.verifyObject(COUPON_CENTER_AVAILABLE_COUPON_CONTAINER);
+	}
+	
+
+	public void verifyMyCouponCenterTab()
+	{
+		browser.waitForObjectToAppear(MY_CENTER_COUPON_LIST_TABEL);
+		browser.verifyObject(REMOVE_ALL_COUPONS_LINK);
 	}
 	
 	public int getMyCouponCount()
@@ -83,7 +99,9 @@ public class MyCouponsPage extends MyCouponsPageLocators
 		
 		try {
 			clickOnMyCouponTab();
-			Thread.sleep(5000);
+			Thread.sleep(2000);
+			verifyMyCouponCenterTab();
+			
 			browser.waitForObjectToAppear(REMOVE_ALL_COUPONS_LINK);
 			browser.click(REMOVE_ALL_COUPONS_LINK);
 			browser.waitForObjectToAppear(REMOVE_ALL_COUPONS_CONFIRMATION_MODAL);
@@ -106,6 +124,9 @@ public class MyCouponsPage extends MyCouponsPageLocators
 		return new MyCouponsPage(webDriver);
 	}
 	
+	
+	
+	
 	public MyCouponsPage loadCouponToMyAccountFromCouponCenterTab(String couponName) throws InterruptedException
 	{
 
@@ -115,6 +136,9 @@ public class MyCouponsPage extends MyCouponsPageLocators
 				removeAllCouponsFromMyCoupons();
 			
 			clickOnCouponCenterTab();
+			
+			verifyCouponCenterTab();
+			
 			webDriver.switchTo().defaultContent();
 			
 			for (int i = 0; i < 15; i++) {
@@ -190,6 +214,104 @@ public class MyCouponsPage extends MyCouponsPageLocators
 	}
 	
 
+	public MyCouponsPage loadMultipleCouponsToMyAccountFromCouponCenterTab(ArrayList<String> couponList) throws InterruptedException
+	{
+
+		try {
+			try {
+				browser.switchTo(By.name("newsfeed-frame"));
+			} catch (Exception e) {
+			}
+
+			
+			if(getMyCouponCount()>0)
+				removeAllCouponsFromMyCoupons();
+			if(false==browser.isDisplayed(COUPON_CENTER_AVAILABLE_COUPON_CONTAINER))
+			{
+				clickOnCouponCenterTab();
+			}
+			
+			verifyCouponCenterTab();
+			
+			webDriver.switchTo().defaultContent();
+			
+			for (int i = 0; i < 15; i++) {
+				webDriver.findElement(By.tagName("body")).sendKeys(Keys.PAGE_DOWN)	;
+				webDriver.findElement(By.tagName("body")).sendKeys(Keys.PAGE_DOWN)	;
+				Thread.sleep(2000);
+			}
+
+			browser.switchTo(By.name("newsfeed-frame"));
+			System.out.println("My coupon Count Before:"+ browser.findElement(MY_COUPONS_COUNT).getText());
+			
+			for (Iterator iterator = couponList.iterator(); iterator.hasNext();) {
+				String couponName = (String) iterator.next();
+				loadCoupon(couponName);
+			}
+			
+			
+		} catch (Exception e) {
+			GenericFunctionLibrary.logReport("Problem in loading coupon to my Account", LOG.FAIL);
+			Assert.assertTrue(false);
+		}
+	    
+	    
+		return new MyCouponsPage(webDriver);
+	}
+	
+
+	public void loadCoupon(String couponName)
+	{
+		try {
+			List<WebElement> coupons = browser.findElements(By.cssSelector(".actionWrapper .coupon-title"));
+			GenericFunctionLibrary.logReport("Scroll down till end of page and got coupon count - "+ coupons.size(), LOG.PASS);
+			
+			WebElement couponElement = null;
+			
+			for (int i = 0; i < coupons.size(); i++) {
+				
+				System.out.println(coupons.get(i).getText());
+				if(coupons.get(i).getText().contains(couponName))
+				{
+				
+					couponElement = coupons.get(i);
+					GenericFunctionLibrary.logReport("Successfully Searched coupn on coupon center page. coupon name -" + couponName, LOG.PASS);
+					System.out.println("Coupon Found on coupon center page");
+				}
+			}
+			
+			if(couponElement==null)
+			{
+				GenericFunctionLibrary.logReport("Coupn not found on coupon center page. coupon name -" + couponName, LOG.FAIL);
+				System.out.println("Coupon not Found on coupon center page");
+				GenericFunctionLibrary.logReport("Coupon is not available in coupon center", LOG.FAIL);
+				Assert.assertTrue(false, "Coupon is not available in coupon center");
+			}
+			
+			
+			WebElement parentOne = couponElement.findElement(By.xpath("..")).findElement(By.xpath("..")).findElement(By.xpath(".."));
+
+			String expectedCouponId = parentOne.getAttribute("id");
+			
+			WebElement loadMyAccountbtn = browser.findElement(By.cssSelector("#"+ expectedCouponId +" div.cta>a .save-coupon"));
+			System.out.println(loadMyAccountbtn.isDisplayed());
+
+			loadMyAccountbtn.click();
+			try {Thread.sleep(2000);} catch (InterruptedException e) {		}
+			browser.waitForObjectToAppear(By.cssSelector("#"+ expectedCouponId +" div.couponStateOverlay"));
+			
+			if (webDriver.findElement(By.cssSelector("#"+ expectedCouponId +" div.couponStateOverlay")).getText().contains("Coupon successfully loaded to your Shop Your Way")) {
+				GenericFunctionLibrary.logReport("Coupon successfully loaded to your Shop Your Way account. Coupon Name -" + couponName, LOG.PASS);
+			}
+			else {
+				GenericFunctionLibrary.logReport("Problem in loading coupon to account . Coupon Name -" + couponName, LOG.FAIL);
+				//Assert.assertTrue(false);
+			}
+		} catch (Exception e) {
+			GenericFunctionLibrary.logReport("Problem in loading coupon to account . Coupon Name -" + couponName +"\n "+e.toString(), LOG.FAIL);
+		}
+
+	}
 	
 	
 	public MyCouponsPage validateCouponOnCouponCenterPage(String couponName) throws InterruptedException

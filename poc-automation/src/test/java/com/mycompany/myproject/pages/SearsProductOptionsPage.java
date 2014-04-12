@@ -19,7 +19,7 @@ public class SearsProductOptionsPage extends SearsProductOptionsPageLocators {
 
 	}
 
-	public SearsProductOptionsPage verifySearsProductOptionsPage() {
+	public SearsProductOptionsPage verifySearsProductOptionsPage(String productName) {
 
 		try {
 			if (browser.getTitle().contains(
@@ -38,6 +38,10 @@ public class SearsProductOptionsPage extends SearsProductOptionsPageLocators {
 			browser.verifyObjectOnPage(PRODUCT_IMAGE);
 			browser.verifyObjectOnPage(GOT_TO_CART_BTN);
 			browser.verifyObjectOnPage(PRODUCT_ORDER_SUMMARY);
+			
+			Assert.assertTrue(browser.getText(PRODUCT_OPTION_PAGE_PRODUCT_NAME).trim().equals(productName), "Product Name not matched on product option page");
+			GenericFunctionLibrary.logReport("Product Name is verified successfully on product option page", LOG.PASS);
+			
 		} catch (Exception e) {
 			Assert.assertTrue(false,
 					"Problem in navigating to product options page");

@@ -124,8 +124,95 @@ public class WhiteLabelShoppingCartPage extends WhiteLabelShoppingCartPageLocato
 			System.out.println("--- IN SAving LINK verifySavingsLinkCouponShoppingCartPage  DONE");
 	}
 	
-	
 	public void verifyEarnPointsOnShoppingCartPage()
+	{
+			try {
+				browser.waitForObjectToAppear(EARN_POINT_DETAILS_LINK);
+				
+				//Cart page
+				browser.click(EARN_POINT_DETAILS_LINK);
+
+				browser.waitForObjectToAppear(SYW_EARN_DETAILS_FLYOUT);
+				
+				
+				// Get count of all products on earn floyout
+				
+				int earnFlyoutProducts = browser.findElements(By.cssSelector("#shcLayer div[id^='pointsDetailWarp_']")).size();
+				
+				for (int i = 1; i <= earnFlyoutProducts; i++) {
+					browser.click(By.cssSelector("#shcLayer div#pointsDetailWarp_"+i+">div#productDetails_"+i+">span.bonusIcon")); // click on + icon present on earn flyout
+					String productname = browser.getText(By.cssSelector("#shcLayer div#pointsDetailWarp_"+i+">div#productDetails_"+i+" .productName"));
+					try {
+						String basePoint = browser.getText(By.cssSelector("#shcLayer div#pointsDetailWarp_"+i+">div#pointDetailsMore_"+i+">div:nth-of-type(1)>div:nth-of-type(2)"));
+
+						System.out.println("Started Earned points validation for product - " + productname);
+						System.out.println(browser.getText(By.cssSelector("#shcLayer div#pointsDetailWarp_"+i+">div#pointDetailsMore_"+i+">div:nth-of-type(1)>div:nth-of-type(1)")));
+						System.out.println(basePoint);
+
+						GenericFunctionLibrary.logReport("Started Earned points flyout validation for product - " + productname, LOG.INFO);
+						GenericFunctionLibrary.logReport(browser.getText(By.cssSelector("#shcLayer div#pointsDetailWarp_"+i+">div#pointDetailsMore_"+i+">div:nth-of-type(1)>div:nth-of-type(1)")), LOG.PASS);
+						GenericFunctionLibrary.logReport( basePoint , LOG.PASS);
+						
+					} catch (Exception e) {
+						System.out.println("No Base point ");
+						GenericFunctionLibrary.logReport("No Base point on earn flyout for product - "+productname, LOG.FAIL);
+					}
+					
+				// Bonus points
+					String bonusPoints = "";
+					
+					try {
+						
+						try {
+							bonusPoints = browser.getText(By.cssSelector("#shcLayer div#pointsDetailWarp_"+i+">div#pointDetailsMore_"+i+">div:nth-of-type(3)>div:nth-of-type(2)"));
+							
+							System.out.println("Started Bonus point and coupon point validation for product - "+ productname);
+							System.out.println(browser.getText(By.cssSelector("#shcLayer div#pointsDetailWarp_"+i+">div#pointDetailsMore_"+i+">div:nth-of-type(3)>div:nth-of-type(1)")));
+							System.out.println("Bounus points=>" + bonusPoints);
+
+							GenericFunctionLibrary.logReport("Started Bonus point and coupon point validation for product - "+ productname, LOG.INFO);
+							GenericFunctionLibrary.logReport(browser.getText(By.cssSelector("#shcLayer div#pointsDetailWarp_"+i+">div#pointDetailsMore_"+i+">div:nth-of-type(3)>div:nth-of-type(1)")), LOG.PASS);
+							GenericFunctionLibrary.logReport(bonusPoints, LOG.PASS);
+						} catch (Exception e1) {
+							System.out.println("Bonus points are not availble on earn point flyout");
+							GenericFunctionLibrary.logReport("Bonus  points are not availble on earn point flyout", LOG.FAIL);
+
+						}
+				
+						
+						//Coupon Points	
+						
+						try {
+							System.out.println(browser.getText(By.cssSelector("#shcLayer div#pointsDetailWarp_"+i+">div#pointDetailsMore_"+i+">div:nth-of-type(3)>div:nth-of-type(4)")));
+							System.out.println(browser.getText(By.cssSelector("#shcLayer div#pointsDetailWarp_"+i+">div#pointDetailsMore_"+i+">div:nth-of-type(3)>div:nth-of-type(5)")));
+
+							GenericFunctionLibrary.logReport("Started coupon points validation on earn point validation", LOG.INFO);
+
+							GenericFunctionLibrary.logReport(browser.getText(By.cssSelector("#shcLayer div#pointsDetailWarp_"+i+">div#pointDetailsMore_"+i+">div:nth-of-type(3)>div:nth-of-type(4)")), LOG.PASS);
+							GenericFunctionLibrary.logReport(browser.getText(By.cssSelector("#shcLayer div#pointsDetailWarp_"+i+">div#pointDetailsMore_"+i+">div:nth-of-type(3)>div:nth-of-type(5)")), LOG.PASS);
+						} catch (Exception e) {
+							System.out.println("Coupon points are not availble on earn point flyout");
+							GenericFunctionLibrary.logReport("Coupon points are not availble on earn point flyout", LOG.FAIL);
+
+						}
+					
+					} catch (Exception e) {
+
+					}
+					
+				}
+				
+			} catch (Exception e) {
+				System.out.println(e.toString());
+			}
+			
+			if(browser.isDisplayed(SYW_EARN_DETAILS_FLYOUT_CLOSE_BTN))
+				browser.click(SYW_EARN_DETAILS_FLYOUT_CLOSE_BTN);
+	}
+	
+
+	
+	public void verifyEarnPointsOnShoppingCartPage_old()
 	{
 			try {
 				browser.waitForObjectToAppear(EARN_POINT_DETAILS_LINK);
@@ -249,7 +336,7 @@ public ArrayList<String> verifyShoppingCartPageAndgetProductDetails()
 					
 					product = productNumber.substring(0,productNumber.indexOf("Mfr"));
 					
-					productNumber.substring(0,productNumber.indexOf("Mfr"));
+					productNumber = productNumber.substring(0,productNumber.indexOf("Mfr"));
 					GenericFunctionLibrary.logReport("Products Number -"+ productNumber + " Product Name: " + productTitle, LOG.PASS);
 					
 					product = product + "::" + productTitle;

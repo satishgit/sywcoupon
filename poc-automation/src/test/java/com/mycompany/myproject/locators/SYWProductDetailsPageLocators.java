@@ -8,7 +8,7 @@ public class SYWProductDetailsPageLocators
 	
 	public static final By PRODUCT_IMG = By.id("img.product-large-image-holder");
 	
-	public static final By PRODUCT_NAME = By.cssSelector(".product-name");
+	public static final By PRODUCT_NAME = By.cssSelector("h1.product-name");
 	
 	public static final By PRODUCT_INFO = By.cssSelector(".product-external-info");
 	

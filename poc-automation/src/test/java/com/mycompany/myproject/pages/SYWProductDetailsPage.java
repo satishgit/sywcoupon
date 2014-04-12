@@ -59,6 +59,8 @@ public class SYWProductDetailsPage extends SYWProductDetailsPageLocators
 	public WhiteLabelShoppingCartPage clickAddToCartAndNavigateToShoppingCartPage()
 	{
 		try {
+			String productName = getProductName();
+			
 			browser.waitForObjectToAppear(PRODUCT_ADD_TO_CART);
 			browser.click(PRODUCT_ADD_TO_CART);		
 			Thread.sleep(2000);
@@ -73,22 +75,29 @@ public class SYWProductDetailsPage extends SYWProductDetailsPageLocators
 				browser.waitForPageLoaded();
 
 			}
-			else
+			else if (browser.getTitle().contains(SearsProductOptionsPageLocators.TITLE))
 			{
 				browser.waitForPageLoaded();
 				new SearsProductOptionsPage(webDriver)
-													.verifySearsProductOptionsPage()
-													.navigateToSearsShoppingCartPage();
+						.verifySearsProductOptionsPage(productName)
+						.navigateToSearsShoppingCartPage();
 			}
 			
 			GenericFunctionLibrary.logReport("Product successfully added to cart.", LOG.PASS);
 
 			
 		} catch (Exception e) {
-				System.out.println(e.toString());
+			GenericFunctionLibrary.logReport("Problem in adding Product to cart.", LOG.FAIL);
 		}
 		
 		return new WhiteLabelShoppingCartPage(webDriver);
+	}
+
+	public String getProductName() {
+
+		browser.waitForObjectToAppear(PRODUCT_NAME);
+		
+		return browser.getText(PRODUCT_NAME);
 	}
 	
 	

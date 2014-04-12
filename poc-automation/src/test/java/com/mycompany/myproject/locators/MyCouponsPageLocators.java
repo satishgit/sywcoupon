@@ -13,17 +13,19 @@ public class MyCouponsPageLocators
 	
 	public static final By COUPON_CENTER_TAB = By.cssSelector(".tabs .shcCoupons");
 	
-	public static final By REMOVE_ALL_COUPONS_LINK = By.cssSelector("a.couponRemoveAll");
-	
-	public static final By REMOVE_ALL_COUPONS_CONFIRMATION_MODAL = By.id("theModalConfirm");
-	
 	public static final By REMOVE_ALL_CONFIRMATION_YES_BTN = By.id("confirmRemoveAll");
-	
-	
 	
 	public static final By COUPON_CENTER_COUPON_LIST_TABEL = By.cssSelector("div#coupon-container1.coupon-container ul.coupon-list");
 	
+	public static final By COUPON_CENTER_AVAILABLE_COUPON_CONTAINER = By.cssSelector("div.available-coupons-container .available-coupons");
+	
+	public static final By COUPON_CENTER_AVAILABLE_COUPON_COUNT = By.cssSelector("div.available-coupons-container .lovely-green>strong");
+	
 	public static final By MY_CENTER_COUPON_LIST_TABEL = By.cssSelector("div.appcontent section.coupon-container ul.coupon-list");
+	
+	public static final By REMOVE_ALL_COUPONS_LINK = By.cssSelector("a.couponRemoveAll");
+	
+	public static final By REMOVE_ALL_COUPONS_CONFIRMATION_MODAL = By.id("theModalConfirm");
 	
 	public static final By LOGIN_FORM_SIGN_IN_BUTTON   = By.id("register-form");
 	

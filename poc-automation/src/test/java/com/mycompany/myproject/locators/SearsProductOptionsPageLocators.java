@@ -9,6 +9,9 @@ public class SearsProductOptionsPageLocators
 	
 	public static final By PRODUCT_IMAGE = By.cssSelector("a.PO_image");
 	
+	public static final By PRODUCT_OPTION_PAGE_PRODUCT_NAME = By.cssSelector("#PO_Item>a");
+	
+	
 	public static final By GOT_TO_CART_BTN = By.partialLinkText("Go to Cart");
 	
 	public static final By ZIP_CODE_TF = By.id("install_zip");

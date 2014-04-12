@@ -120,7 +120,12 @@ public class AbstractPage extends BaseTest {
 	}
 
 	public String getText(By by) {
-		return findElement(by).getText();
+		String sText = null;
+		try {
+			sText = findElement(by).getText();
+		} catch (Exception e) {
+		}
+		return sText;
 	}
 
 	
